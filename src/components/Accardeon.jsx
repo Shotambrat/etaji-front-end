@@ -18,9 +18,8 @@ export default function ControlledAccordions() {
   };
 
   return (
-    <div className="w-[200px]">
+    <div>
       <Accordion
-        className="w-[200px]"
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
       >
@@ -29,77 +28,73 @@ export default function ControlledAccordions() {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            General settings
+          <Typography sx={{ flexShrink: 0 }}>
+            По периоду
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
         <MenuList dense>
             <MenuItem>
-                <ListItemText inset>Single</ListItemText>
-            </MenuItem>
-            <MenuItem>
-                <ListItemText inset>1.15</ListItemText>
-            </MenuItem>
-            <MenuItem>
-                <ListItemText inset>Double</ListItemText>
-            </MenuItem>
-            <MenuItem>
                 <ListItemIcon>
                 <Check />
                 </ListItemIcon>
-                Custom: 1.2
+                <ListItemText>Сегодня</ListItemText>
+            </MenuItem>
+            <MenuItem>
+                <ListItemText>На неделю</ListItemText>
+            </MenuItem>
+            <MenuItem>
+                <ListItemText >На месяц</ListItemText>
             </MenuItem>
            </MenuList>
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Users</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>Donec placerat</Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel3"}
-        onChange={handleChange("panel3")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3bh-content"
-          id="panel3bh-header"
-        >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Advanced settings
+          <Typography sx={{ flexShrink: 0 }}>
+            По дате
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>Nunc vitae</Typography>
+        <MenuList dense>
+            <MenuItem>
+                <ListItemIcon>
+                <Check />
+                </ListItemIcon>
+                <ListItemText>Дата окончания</ListItemText>
+            </MenuItem>
+            <MenuItem>
+                <ListItemText>Дата создания</ListItemText>
+            </MenuItem>
+            <MenuItem>
+                <ListItemText >Дата обновления</ListItemText>
+            </MenuItem>
+           </MenuList>
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel4"}
-        onChange={handleChange("panel4")}
-      >
-        <AccordionSummary
+      <Accordion>
+      <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Personal data
+          <Typography sx={{ flexShrink: 0 }}>
+            Другие
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>Nunc vitae</Typography>
+        <MenuList dense>
+            <MenuItem>
+                <ListItemIcon>
+                  <Check />
+                </ListItemIcon>
+                <ListItemText>Завершенные</ListItemText>
+            </MenuItem>
+           </MenuList>
         </AccordionDetails>
       </Accordion>
     </div>
