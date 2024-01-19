@@ -2,7 +2,8 @@ import react, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import filterIcon from '../assets/svg/filter-svgrepo-com.svg'
+import filterIcon from '../assets/svg/filter-svgrepo-com.svg';
+import Accardeon from '../components/Accardeon'
 
 export default function BasicMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -35,9 +36,11 @@ export default function BasicMenu() {
             'aria-labelledby': 'basic-button',
             }}
         >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+        
+                <Accardeon />
+            {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem> */}
         </Menu>
         </div>
     );

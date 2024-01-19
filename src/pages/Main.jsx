@@ -4,7 +4,7 @@ import Home from './Home'
 
 export default function Main() {
     let data = {
-        success: true
+        success: false
     }
 
     return (
