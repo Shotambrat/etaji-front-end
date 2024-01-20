@@ -38,7 +38,7 @@ export default function LoginForm() {
     };
 
     return (
-        <Container className='' component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
                 sx={{

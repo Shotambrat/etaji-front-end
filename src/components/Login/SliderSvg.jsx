@@ -20,7 +20,7 @@ export default function SliderSvg() {
     };
 
     return (
-        <div className='flex flex-col w-[100] h-auto overflow-hidden'>
+        <div className='flex flex-col w-[100] h-auto overflow-hidden max-sm:flex-row'>
             <Slider {...settings}>
                 {svgInfo.map((svg) => {
                     return (

@@ -8,11 +8,11 @@ export default function Login() {
 
     return (
         <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-yellow-100">
-            <div className='relative flex w-[800px] h-[400px]'>
-                <div className='relative flex justify-center w-1/2 h-auto'>
+            <div className='relative flex justify-center w-[800px] h-[400px] max-sm:flex-col-reverse'>
+                <div className='relative flex justify-center w-1/2 h-auto max-sm:w-auto'>
                     <LoginForm />
                 </div>
-                <div className='flex justify-center w-1/2 h-auto'>
+                <div className='flex justify-center w-1/2 h-auto max-sm:w-auto max-sm:h-[100px]'>
                     <SliderSvg />
                 </div>
             </div>
