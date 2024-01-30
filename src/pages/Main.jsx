@@ -1,19 +1,17 @@
-import React from 'react'
-import Login from '../components/Login/Login'
-import Home from './Home'
+import React, { useState } from "react";
+import Login from "../components/Login/Login";
+import { useNavigate } from "react-router-dom";
 
 export default function Main() {
-    let data = {
-        success: true
-    }
+    const navigate = useNavigate();
+
+    const handleLoginSuccess = () => {
+        navigate("/home");
+    };
 
     return (
         <div>
-            {data.success ? 
-                <Login />
-                : 
-                <Home />
-            }
+            <Login onLoginSuccess={handleLoginSuccess} />
         </div>
-    )
+    );
 }

@@ -1,11 +1,10 @@
 import react, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import filterIcon from '../assets/svg/filter-svgrepo-com.svg';
 import Accardeon from '../components/Accardeon'
 
-export default function BasicMenu() {
+export default function BasicMenu({onFilterChange, onFullChange}) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -37,10 +36,7 @@ export default function BasicMenu() {
             }}
         >
         
-                <Accardeon />
-            {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+                <Accardeon onFilterChange={onFilterChange} onFullChange={onFullChange}/>
         </Menu>
         </div>
     );
