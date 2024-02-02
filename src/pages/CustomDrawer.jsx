@@ -8,11 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import UserModal from "../components/Modals/UserModal";
 
 const drawerWidth = 240;
 
@@ -31,6 +31,7 @@ export default function CustomDrawer() {
   const navigate = useNavigate();
   const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [openUserModal, setOpenUserModal] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -50,6 +51,10 @@ export default function CustomDrawer() {
     navigate("/users");
   };
 
+  const handleTasks = () => {
+    navigate("/home");
+  };
+
   const list = (
     <div
       role="presentation"
@@ -57,7 +62,7 @@ export default function CustomDrawer() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button>
+        <ListItem button onClick={() => setOpenUserModal(true)}>
           <AccountCircleIcon sx={{ marginRight: "10px" }} />
           <ListItemText primary="Обо мне" />
         </ListItem>
@@ -67,11 +72,7 @@ export default function CustomDrawer() {
               <PersonSearchIcon sx={{ marginRight: "10px" }} />
               <ListItemText primary="Пользователи" />
             </ListItem>
-            <ListItem button>
-              <PersonAddIcon sx={{ marginRight: "10px" }} />
-              <ListItemText primary="Создать пользователя" />
-            </ListItem>
-            <ListItem button>
+            <ListItem button onClick={handleTasks}>
               <AssignmentIcon sx={{ marginRight: "10px" }} />
               <ListItemText primary="Задачи" />
             </ListItem>
@@ -107,6 +108,7 @@ export default function CustomDrawer() {
       >
         {list}
       </Drawer>
+      <UserModal open={openUserModal} onClose={() => setOpenUserModal(false)}/>
     </div>
   );
 }

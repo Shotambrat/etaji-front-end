@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Brightness1OutlinedIcon from "@mui/icons-material/Brightness1Outlined";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import Modal from "./Modals/Modal";
 import { useSelector, useDispatch } from "react-redux";
-import { updateTaskStatus, createTask } from "../redux/actions/actions";
+import { updateTaskStatus, createTask, deleteTask } from "../redux/actions/actions";
 import { API_URL_TASK } from "../api/api";
 import axios from "axios";
 import Loader from "./Loader";
@@ -23,10 +23,26 @@ export default function Tasks({ full, filter, setCount, setDay }) {
   const tasks = useSelector((state) => state.tasks);
   console.log(tasks);
 
+
+  useEffect(() => {
+    console.log("Tasks have been updated:", tasks);
+  }, [tasks]);
+
   const handleCreateTask = (newTask) => {
     dispatch(createTask(newTask));
   };
-
+  const handleDeleteTask = async (taskId) => {
+    setLoading(true);
+    try {
+      await axios.delete(`${API_URL_TASK}/${taskId}`);
+      dispatch(deleteTask(taskId));
+    } catch (error) {
+      console.error(error);
+      console.log("Oshibkaaaa");
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleOpenModal = () => setCreateTaskModalIsOpen(true);
   const handleCloseModal = () => setCreateTaskModalIsOpen(false);
 
@@ -145,7 +161,6 @@ export default function Tasks({ full, filter, setCount, setDay }) {
         {user[0].rank === "boss" ? (
           <div>
             <Button variant="text" onClick={handleOpenModal} className="my-2">
-              {" "}
               <AddIcon /> Добавить задачу
             </Button>
             <TaskModal
@@ -211,11 +226,11 @@ export default function Tasks({ full, filter, setCount, setDay }) {
                 <div className="flex-flex-wrap w-auto mr-3 max-sm:w-[100px]">
                   {user[0].rank === "boss" ? (
                     <Button
+                      onClick={() => handleDeleteTask(task.id)}
                       variant="contained"
                       className="p-1 mr-4 h-[40px] rounded bg-red-600"
                     >
-                      {" "}
-                      Удалить{" "}
+                      Удалить
                     </Button>
                   ) : null}
                   {task.status === "fullfield" ? null : (

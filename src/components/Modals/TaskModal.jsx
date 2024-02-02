@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-import {API_URL_TASK} from '../../api/api';
+import { API_URL_TASK } from "../../api/api";
 import Loader from "../Loader";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,34 +51,41 @@ const CreateTaskModal = ({ open, onClose }) => {
   const [deadline, setDeadline] = useState("");
   const [prioritet, setPriority] = useState("");
   const [respons, setResponsible] = useState("");
-  const [taskId, setTaskId] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleCreate = () => {
     if (title && description && deadline && prioritet && respons) {
-        setLoading(true);
-        try {
-            axios.post(API_URL_TASK, {
+      setLoading(true);
+      try {
+        axios
+          .post(API_URL_TASK, {
+            title,
+            description,
+            deadline,
+            prioritet,
+            status: "pending",
+            respons,
+          })
+          .then((response) =>
+            dispatch(
+              createTask({
+                id: response.data.id,
                 title,
                 description,
                 deadline,
                 prioritet,
-                status: 'pending',
+                status: "pending",
                 respons,
-            }).then(response => setTaskId(response.data.id)).then(()=>
-            dispatch(
-                createTask({
-                    id: taskId, title, description, deadline, prioritet, respons
-                }))
-            
-            );
-            onClose();
-        } catch (e) {
-            console.log(e);
-            console.error("OSHIBKA CREATE TASK")
-        } finally {
-            setLoading(false);
-        }
+              })
+            )
+          )
+        onClose();
+      } catch (e) {
+        console.log(e);
+        console.error("OSHIBKA CREATE TASK");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -93,80 +100,82 @@ const CreateTaskModal = ({ open, onClose }) => {
 
   return (
     <div>
-    {loading && <Loader />}
-    <Dialog open={open} onClose={handleCancel}>
-      <DialogTitle>Create Task</DialogTitle>
-      <DialogContent>
-        <TextField
-          label="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />{" "}
-        <br />
-        <TextField
-          className={classes.textField}
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />{" "}
-        <br />
-        <TextField
-          className={classes.textField}
-          label="Deadline"
-          type="date"
-          value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
-          InputLabelProps={{ shrink: true }}
-        />{" "}
-        <br />
-        <FormControl className={classes.formControl}>
-          <InputLabel shrink htmlFor="my-select">
-            Prioritet
-          </InputLabel>
-          <Select
-            inputProps={{
-              id: "my-select",
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            label="Deadline"
-            value={prioritet}
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <MenuItem value="high">High</MenuItem>
-            <MenuItem value="medium">Medium</MenuItem>
-            <MenuItem value="low">Low</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel shrink htmlFor="my-select">
-            Responsible
-          </InputLabel>
-          <Select
-            inputProps={{
-              id: "my-select",
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            label="Responsible"
-            value={respons}
-            onChange={(e) => setResponsible(e.target.value)}
-          >
-            { users.map((user) => (
-                    <MenuItem key={user.login} value={user.login}>{user.login}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleCancel}>Cancel</Button>
-        <Button onClick={handleCreate} color="primary">
-          Create
-        </Button>
-      </DialogActions>
-    </Dialog>
+      {loading && <Loader />}
+      <Dialog open={open} onClose={handleCancel}>
+        <DialogTitle>Создать задачу</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Загаловок"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />{" "}
+          <br />
+          <TextField
+            className={classes.textField}
+            label="Описание"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />{" "}
+          <br />
+          <TextField
+            className={classes.textField}
+            label="Срок"
+            type="date"
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+            InputLabelProps={{ shrink: true }}
+          />{" "}
+          <br />
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink htmlFor="my-select">
+              Приоритет
+            </InputLabel>
+            <Select
+              inputProps={{
+                id: "my-select",
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              label="Deadline"
+              value={prioritet}
+              onChange={(e) => setPriority(e.target.value)}
+            >
+              <MenuItem value="high">High</MenuItem>
+              <MenuItem value="medium">Medium</MenuItem>
+              <MenuItem value="low">Low</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink htmlFor="my-select">
+              Ответственный
+            </InputLabel>
+            <Select
+              inputProps={{
+                id: "my-select",
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              label="Responsible"
+              value={respons}
+              onChange={(e) => setResponsible(e.target.value)}
+            >
+              {users.map((user) => (
+                <MenuItem key={user.login} value={user.login}>
+                  {user.login}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={handleCreate} color="primary">
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
