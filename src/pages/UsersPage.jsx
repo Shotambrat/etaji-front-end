@@ -45,11 +45,11 @@ export default function UsersPage() {
     }
   };
 
-  const handleDelete = async (userId) => {
+  const handleDelete = async (login) => {
     try {
       setLoading(true);
-      await axios.delete(`${API_URL_USER}/${userId}`);
-      dispatch(deleteUser(userId));
+      await axios.delete(`${API_URL_USER}?login=${login}`);
+      dispatch(deleteUser(login));
     } catch (error) {
       console.error("Ошибка при удалении пользователя:", error);
     } finally {

@@ -1,4 +1,4 @@
-import react, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import filterIcon from '../assets/svg/filter-svgrepo-com.svg';
